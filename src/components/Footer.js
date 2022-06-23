@@ -1,10 +1,11 @@
 import React from 'react'
 
-const Controls = ()=>{
+const Footer = ()=>{
     return(
-        <React.Fragment> 
+        <React.Fragment>
+
         </React.Fragment>
     )
 }
 
-export default Controls
+export default Footer
