@@ -6,8 +6,9 @@ const useGameLogic = ()=>{
     const [grid, setGrid] = useState([])
 
     const initialize =(columns)=>{
-        let cells = newArray(columns)
-        for
+        let cells = new Array(columns)
+        cells.map((column)=> cells[column]=new Array(columns)) 
+        console.log(cells)
     }
 
 }
