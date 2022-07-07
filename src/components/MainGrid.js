@@ -18,7 +18,7 @@ const MainGrid = ()=>{
                             key={'cell, '+rowIndex}
                             width="20px"
                             height="20px"
-                            backgroundColor={cell ? 'black':'white'}
+                            backgroundColor={cell ? 'black':'lightgrey'}
                             > 
                             </Box>
                         )}
