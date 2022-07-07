@@ -14,11 +14,12 @@ const useGameLogic = ()=>{
     }
 
     //initialize once on render 
+
     useEffect(()=>{
-        setGrid(initialize())
+        setGrid(initialize(columns))
     },[])
         
-    return grid
+    return {grid, columns}
 }
 
 export default useGameLogic
