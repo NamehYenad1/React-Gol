@@ -8,8 +8,8 @@ const useGameLogic = () => {
     const [steps, setSteps] = useState(0)
 
     useInterval(() => {
-            updateGrid()
-        }
+        updateGrid()
+    }
         , running ? interval : null);
 
 
@@ -46,7 +46,8 @@ const useGameLogic = () => {
             )
 
         )
-        console.log(newGrid)
+        running ? setRunning(false) : null
+        steps > 0 ? setSteps(0) : null
         setGrid(newGrid)
     }
 
