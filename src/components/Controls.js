@@ -3,6 +3,7 @@ import ControlButton from './ControlButton'
 import { Stack,ButtonGroup } from '@chakra-ui/react'
 import IterationCounter from './IterationCounter'
 const Controls = (props)=>{
+   
     return(
         <React.Fragment> 
             <Stack>
@@ -11,7 +12,7 @@ const Controls = (props)=>{
             <ButtonGroup spacking='3'>
             <ControlButton>Glider</ControlButton>
             <ControlButton>Reset</ControlButton>
-            <ControlButton onClick={()=>props.randomize}>Randomize</ControlButton>
+            <ControlButton onClick={props.randomize}>Randomize</ControlButton>
             </ButtonGroup>
         
             <IterationCounter>2</IterationCounter>

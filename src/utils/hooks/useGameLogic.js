@@ -29,10 +29,16 @@ const useGameLogic = ()=>{
       }
 
     const randomize = (oldGrid)=>{
-        let newGrid = [...oldGrid]
-        for(let i=0; i<(columns/2); i++){
-            newGrid[getRandomInt(40)][getRandomInt(40)] = true           
-        }
+        console.log('clicked')
+        let newGrid = JSON.parse(JSON.stringify(oldGrid))
+        newGrid = newGrid.map((column)=>
+                column.map((cell) =>
+                   
+                    getRandomInt(2)==1 ? cell=false:cell=true
+                )
+            
+        )
+        console.log(newGrid)
         setGrid(newGrid)
     }
 
