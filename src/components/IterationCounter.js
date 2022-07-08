@@ -4,7 +4,7 @@ const IterationCounter = (props)=>{
     return(
         <React.Fragment> 
         <Center w='fit-content'>
-        <Text>Steps: </Text>
+        <Text>Steps:{props.steps}</Text>
         </Center>
         </React.Fragment>
         )

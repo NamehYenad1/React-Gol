@@ -11,11 +11,11 @@ const Controls = (props)=>{
         
             <ButtonGroup spacking='3'>
             <ControlButton>Glider</ControlButton>
-            <ControlButton>Reset</ControlButton>
+            <ControlButton onClick={props.reset}>Reset</ControlButton>
             <ControlButton onClick={props.randomize}>Randomize</ControlButton>
             </ButtonGroup>
         
-            <IterationCounter>2</IterationCounter>
+            <IterationCounter steps={props.steps}></IterationCounter>
             </Stack>
 
         </React.Fragment>
