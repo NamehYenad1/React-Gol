@@ -6,13 +6,9 @@ const useGameLogic = () => {
     const [grid, setGrid] = useState([])
     const [running, setRunning] = useState([false])
     const [steps, setSteps] = useState(0)
-
     useInterval(() => {
         updateGrid()
-    }
-        , running ? interval : null);
-
-
+    }, running ? interval : null);
     //intiliaze function
     const initialize = (columns) => {
         let cells = new Array(columns)
@@ -26,13 +22,10 @@ const useGameLogic = () => {
         cells[26][14] = true
         setGrid(cells)
     }
-
     //Use Effect to initialize once on render 
     useEffect(() => {
         initialize(columns)
     }, [])
-
-
     //Randomize Function
     const getRandomInt = (max) => {
         return Math.floor(Math.random() * max);
@@ -50,7 +43,6 @@ const useGameLogic = () => {
         steps > 0 ? setSteps(0) : null
         setGrid(newGrid)
     }
-
     //Reset function
     const reset = () => {
         let cells = new Array(columns)
@@ -66,7 +58,6 @@ const useGameLogic = () => {
         setRunning(false)
         setSteps(0)
     }
-
     //Rules 
     const checkCells = (cell, neighbours) => {
         const initialValue = 0;
@@ -84,7 +75,6 @@ const useGameLogic = () => {
         }
         else return false
     }
-
     const getNeighbours = (cell, i, x) => {
         let neighbours = []
         neighbours.push(cell[(i - 1 + cell.length) % cell.length][(x + cell.length) % cell[0].length])
@@ -97,7 +87,6 @@ const useGameLogic = () => {
         neighbours.push(cell[(i + 1 + cell.length) % cell.length][(x + 1 + cell.length) % cell[0].length])
         return neighbours
     }
-
     //update
     const updateGrid = () => {
         let newGrid = JSON.parse(JSON.stringify(grid))
@@ -105,11 +94,9 @@ const useGameLogic = () => {
         setGrid(newGrid)
         setSteps((steps) => steps += 1)
     }
-
     const start = () => {
         setRunning(true)
     }
-
     return { grid, columns, steps, reset, randomize, start }
 }
 
