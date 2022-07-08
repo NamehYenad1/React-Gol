@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react'
-
+import useInterval from 'use-interval'
 const useGameLogic = () => {
     const columns = 52
     const interval = 300
     const [grid, setGrid] = useState([])
     const [running, setRunning] = useState([false])
     const [steps, setSteps] = useState(0)
+
+    useInterval(() => {
+            updateGrid()
+        }
+        , running ? interval : null);
 
 
     //intiliaze function
@@ -79,9 +84,9 @@ const useGameLogic = () => {
         else return false
     }
 
-    const getNeighbours = (cell,i,x) => {
+    const getNeighbours = (cell, i, x) => {
         let neighbours = []
-        neighbours.push(cell[(i - 1 + cell.length) % cell.length][(x + cell.length) %  cell[0].length])
+        neighbours.push(cell[(i - 1 + cell.length) % cell.length][(x + cell.length) % cell[0].length])
         neighbours.push(cell[(i - 1 + cell.length) % cell.length][(x - 1 + cell.length) % cell[0].length])
         neighbours.push(cell[(i - 1 + cell.length) % cell.length][(x + 1 + cell.length) % cell[0].length])
         neighbours.push(cell[i + cell.length % cell.length][(x - 1 + cell.length) % cell[0].length])
@@ -89,23 +94,22 @@ const useGameLogic = () => {
         neighbours.push(cell[(i + 1 + cell.length) % cell.length][(x + cell.length) % cell[0].length])
         neighbours.push(cell[(i + 1 + cell.length) % cell.length][(x - 1 + cell.length) % cell[0].length])
         neighbours.push(cell[(i + 1 + cell.length) % cell.length][(x + 1 + cell.length) % cell[0].length])
-      
         return neighbours
     }
 
     //update
     const updateGrid = () => {
         let newGrid = JSON.parse(JSON.stringify(grid))
-        newGrid = newGrid.map((column,index)=> column.map((cell,index2)=>checkCells(cell, getNeighbours(newGrid,index,index2))))
+        newGrid = newGrid.map((column, index) => column.map((cell, index2) => checkCells(cell, getNeighbours(newGrid, index, index2))))
         setGrid(newGrid)
+        setSteps((steps) => steps += 1)
     }
 
+    const start = () => {
+        setRunning(true)
+    }
 
-
-
-
-
-    return { grid, columns, steps, reset, randomize, updateGrid }
+    return { grid, columns, steps, reset, randomize, start }
 }
 
 export default useGameLogic

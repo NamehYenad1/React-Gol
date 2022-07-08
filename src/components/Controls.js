@@ -7,7 +7,7 @@ const Controls = (props)=>{
     return(
         <React.Fragment> 
             <Stack>
-            <ControlButton onClick={props.testUpdate}>Start</ControlButton>
+            <ControlButton onClick={props.start}>Start</ControlButton>
         
             <ButtonGroup spacking='3'>
             <ControlButton>Glider</ControlButton>
