@@ -10,16 +10,33 @@ const useGameLogic = ()=>{
         for(let i=0; i<cells.length; i++){
             cells[i] = new Array(columns).fill(false)
         }
-        return cells
+        cells[24][14] = true
+        cells[25][13] = true
+        cells[25][14] = true
+        cells[25][15] = true
+        cells[26][14] = true
+        setGrid(cells)
     }
 
     //initialize once on render 
 
     useEffect(()=>{
-        setGrid(initialize(columns))
+        initialize(columns)
     },[])
-        
-    return {grid, columns}
+    
+    const getRandomInt =(max)=> {
+        return Math.floor(Math.random() * max);
+      }
+
+    const randomize = (oldGrid)=>{
+        let newGrid = [...oldGrid]
+        for(let i=0; i<(columns/2); i++){
+            newGrid[getRandomInt(40)][getRandomInt(40)] = true           
+        }
+        setGrid(newGrid)
+    }
+
+    return {grid, columns, randomize}
 }
 
 export default useGameLogic

@@ -11,7 +11,7 @@ const Controls = (props)=>{
             <ButtonGroup spacking='3'>
             <ControlButton>Glider</ControlButton>
             <ControlButton>Reset</ControlButton>
-            <ControlButton>Randomize</ControlButton>
+            <ControlButton onClick={()=>props.randomize}>Randomize</ControlButton>
             </ButtonGroup>
         
             <IterationCounter>2</IterationCounter>
