@@ -1,17 +1,17 @@
-import React, {useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 
-const useGameLogic = ()=>{
+const useGameLogic = () => {
     const columns = 52
-    const interval= 300
+    const interval = 300
     const [grid, setGrid] = useState([])
     const [running, setRunning] = useState([false])
     const [steps, setSteps] = useState(0)
 
 
     //intiliaze function
-    const initialize =(columns)=>{
+    const initialize = (columns) => {
         let cells = new Array(columns)
-        for(let i=0; i<cells.length; i++){
+        for (let i = 0; i < cells.length; i++) {
             cells[i] = new Array(columns).fill(false)
         }
         cells[24][14] = true
@@ -23,33 +23,32 @@ const useGameLogic = ()=>{
     }
 
     //Use Effect to initialize once on render 
-    useEffect(()=>{
+    useEffect(() => {
         initialize(columns)
-    },[])
-    
+    }, [])
+
 
     //Randomize Function
-    const getRandomInt =(max)=> {
+    const getRandomInt = (max) => {
         return Math.floor(Math.random() * max);
-      }
-    const randomize = (oldGrid)=>{
+    }
+    const randomize = (oldGrid) => {
         console.log('clicked')
         let newGrid = JSON.parse(JSON.stringify(oldGrid))
-        newGrid = newGrid.map((column)=>
-                column.map((cell) =>
-                   
-                    getRandomInt(2)==1 ? cell=false:cell=true
-                )
-            
+        newGrid = newGrid.map((column) =>
+            column.map((cell) =>
+                getRandomInt(2) == 1 ? cell = false : cell = true
+            )
+
         )
         console.log(newGrid)
         setGrid(newGrid)
     }
 
     //Reset function
-    const reset=()=>{
+    const reset = () => {
         let cells = new Array(columns)
-        for(let i=0; i<cells.length; i++){
+        for (let i = 0; i < cells.length; i++) {
             cells[i] = new Array(columns).fill(false)
         }
         cells[24][14] = true
@@ -62,9 +61,51 @@ const useGameLogic = ()=>{
         setSteps(0)
     }
 
+    //Rules 
+    const checkCells = (cell, neighbours) => {
+        const initialValue = 0;
+        //used built in javascript reduce function to quickly get total number of life neighbours to a cell
+        const sumLiveCells = neighbours.reduce(
+            (previousValue, currentCell) => currentCell ? previousValue + 1 : previousValue,
+            initialValue
+        );
+
+        if (cell && (sumLiveCells === 2 || sumLiveCells === 3)) {
+            return cell
+        }
+        else if (!cell && sumLiveCells === 3) {
+            return true
+        }
+        else return false
+    }
+
+    const getNeighbours = (cell,i,x) => {
+        let neighbours = []
+        neighbours.push(cell[(i - 1 + cell.length) % cell.length][(x + cell.length) %  cell[0].length])
+        neighbours.push(cell[(i - 1 + cell.length) % cell.length][(x - 1 + cell.length) % cell[0].length])
+        neighbours.push(cell[(i - 1 + cell.length) % cell.length][(x + 1 + cell.length) % cell[0].length])
+        neighbours.push(cell[i + cell.length % cell.length][(x - 1 + cell.length) % cell[0].length])
+        neighbours.push(cell[i + cell.length % cell.length][(x + 1 + cell.length) % cell[0].length])
+        neighbours.push(cell[(i + 1 + cell.length) % cell.length][(x + cell.length) % cell[0].length])
+        neighbours.push(cell[(i + 1 + cell.length) % cell.length][(x - 1 + cell.length) % cell[0].length])
+        neighbours.push(cell[(i + 1 + cell.length) % cell.length][(x + 1 + cell.length) % cell[0].length])
+      
+        return neighbours
+    }
+
+    //update
+    const updateGrid = () => {
+        let newGrid = JSON.parse(JSON.stringify(grid))
+        newGrid = newGrid.map((column,index)=> column.map((cell,index2)=>checkCells(cell, getNeighbours(newGrid,index,index2))))
+        setGrid(newGrid)
+    }
 
 
-    return {grid, columns,steps,reset, randomize}
+
+
+
+
+    return { grid, columns, steps, reset, randomize, updateGrid }
 }
 
 export default useGameLogic

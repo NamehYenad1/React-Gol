@@ -4,12 +4,12 @@ import Controls from './Controls'
 import useGameLogic from '../utils/hooks/useGameLogic.js'
 import { SimpleGrid,Box } from '@chakra-ui/react'
 const MainGrid = ()=>{
-    const {grid,columns,randomize,steps,reset } = useGameLogic()
+    const {grid,columns,randomize,steps,reset,updateGrid } = useGameLogic()
     console.log(grid)
     return(
         <React.Fragment>
             <Header></Header>
-            <Controls steps={steps} reset={()=>reset()} randomize={()=>randomize(grid)}></Controls>
+            <Controls testUpdate={()=>updateGrid()} steps={steps} reset={()=>reset()} randomize={()=>randomize(grid)}></Controls>
             <SimpleGrid gridTemplateColumns={`repeat(${columns},20px)`} gridGap = "2px" mb="4rem">
                 {grid ? grid.map((column,index)=>
                     <SimpleGrid key = {index} className="column" gridGap="2px"> 
