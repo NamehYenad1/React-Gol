@@ -39,8 +39,8 @@ const useGameLogic = () => {
             )
 
         )
-        setRunning(false) 
-        setSteps(0) 
+        setRunning(false)
+        setSteps(0)
         setGrid(newGrid)
     }
     //Reset function
@@ -97,14 +97,12 @@ const useGameLogic = () => {
     const start = () => {
         setRunning(true)
     }
-
-    const addCell = (columnIndex, rowIndex) => {
+    const clickCell = (columnIndex, rowIndex) => {
         let newGrid = JSON.parse(JSON.stringify(grid))
-        newGrid[columnIndex][rowIndex] = true
+        newGrid[columnIndex][rowIndex] = !newGrid[columnIndex][rowIndex]
         setGrid(newGrid)
     }
-
-    return { grid, columns, steps, reset, randomize, start, addCell }
+    return { grid, columns, steps, reset, randomize, start, clickCell }
 }
 
 export default useGameLogic

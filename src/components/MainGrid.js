@@ -6,7 +6,7 @@ import { SimpleGrid,Box } from '@chakra-ui/react'
 import { getNextKeyDef } from '@testing-library/user-event/dist/keyboard/getNextKeyDef'
 
 const MainGrid = ()=>{
-    const {grid,columns,randomize,steps,reset,start,addCell } = useGameLogic()
+    const {grid,columns,randomize,steps,reset,start,clickCell } = useGameLogic()
     console.log(grid)
     return(
         <React.Fragment>
@@ -18,7 +18,7 @@ const MainGrid = ()=>{
                         {grid[index].map((cell, rowIndex) =>
                             <Box
                             key={'cell, '+rowIndex}
-                            onClick ={()=>addCell(index,rowIndex)}
+                            onClick ={()=>clickCell(index,rowIndex)}
                             width="20px"
                             height="20px"
                             backgroundColor={cell ? 'black':'lightgrey'}
