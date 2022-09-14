@@ -6,12 +6,12 @@ import { SimpleGrid,Box } from '@chakra-ui/react'
 import { getNextKeyDef } from '@testing-library/user-event/dist/keyboard/getNextKeyDef'
 
 const MainGrid = ()=>{
-    const {grid,columns,randomize,steps,reset,start,clickCell } = useGameLogic()
+    const {grid,columns,randomize,steps,reset,start,clickCell,initializePattern } = useGameLogic()
     console.log(grid)
     return(
         <React.Fragment>
             <Header></Header>
-            <Controls start={()=>start()} steps={steps} reset={()=>reset()} randomize={()=>randomize(grid)}></Controls>
+            <Controls initializePattern={initializePattern} start={()=>start()} steps={steps} reset={()=>reset()} randomize={()=>randomize(grid)}></Controls>
             <SimpleGrid gridTemplateColumns={`repeat(${columns},20px)`} gridGap = "2px" mb="4rem">
                 {grid ? grid.map((column,index)=>
                     <SimpleGrid key = {index} className="column" gridGap="2px"> 

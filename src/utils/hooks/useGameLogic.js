@@ -22,6 +22,55 @@ const useGameLogic = () => {
         cells[26][14] = true
         setGrid(cells)
     }
+
+    const clearGrid=()=>{
+        let cells = new Array(columns)
+        for (let i = 0; i < cells.length; i++) {
+            cells[i] = new Array(columns).fill(false)
+        }
+        return cells
+    }
+    const initializePattern = (pattern='Default') => {
+        let cells 
+        switch (pattern) {
+            case 'Glider':
+                cells[24][14] = true
+                cells[25][15] = true
+                cells[26][14] = true
+                cells[26][15] = true
+                cells[26][13] = true
+            case 'Blinker':
+                cells[24][14] = true
+                cells[25][14] = true
+                cells[26][14] = true
+            case 'Toad':
+                cells[24][14] = true
+                cells[24][15] = true
+                cells[24][16] = true
+                cells[25][13] = true
+                cells[25][14] = true
+                cells[25][15] = true
+            case 'Beacon':
+                cells[24][14] = true
+                cells[24][15] = true
+                cells[25][14] = true
+                cells[26][17] = true
+                cells[27][17] = true
+                cells[27][16] = true
+            default:
+                cells[24][14] = true
+                cells[25][13] = true
+                cells[25][14] = true
+                cells[25][15] = true
+                cells[26][14] = true
+        }
+        console.log(cells)
+        setGrid(cells)
+    }
+
+
+    //
+
     //Use Effect to initialize once on render 
     useEffect(() => {
         initialize(columns)
@@ -102,7 +151,7 @@ const useGameLogic = () => {
         newGrid[columnIndex][rowIndex] = !newGrid[columnIndex][rowIndex]
         setGrid(newGrid)
     }
-    return { grid, columns, steps, reset, randomize, start, clickCell }
+    return { grid, columns, steps, reset, randomize, start, clickCell,initializePattern}
 }
 
 export default useGameLogic
