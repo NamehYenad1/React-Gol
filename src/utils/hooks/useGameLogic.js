@@ -6,6 +6,7 @@ const useGameLogic = () => {
     const [grid, setGrid] = useState([])
     const [running, setRunning] = useState(false)
     const [steps, setSteps] = useState(0)
+    const [dropDownValue, setDropDownValue] = useState('Default')
     useInterval(() => {
         updateGrid()
     }, running ? interval : null);
@@ -23,48 +24,57 @@ const useGameLogic = () => {
         setGrid(cells)
     }
 
-    const clearGrid=()=>{
+    const initializePattern = (pattern) => {
         let cells = new Array(columns)
         for (let i = 0; i < cells.length; i++) {
             cells[i] = new Array(columns).fill(false)
         }
-        return cells
-    }
-    const initializePattern = (pattern='Default') => {
-        let cells 
+        console.log('pattern is ', pattern)
         switch (pattern) {
             case 'Glider':
+                console.log('hit Glider')
                 cells[24][14] = true
                 cells[25][15] = true
                 cells[26][14] = true
                 cells[26][15] = true
                 cells[26][13] = true
+                break;
             case 'Blinker':
+                console.log('hit Blinker')
                 cells[24][14] = true
                 cells[25][14] = true
                 cells[26][14] = true
+                break;
             case 'Toad':
+                console.log('hit Toad')
                 cells[24][14] = true
                 cells[24][15] = true
                 cells[24][16] = true
                 cells[25][13] = true
                 cells[25][14] = true
                 cells[25][15] = true
+                break;
+
+
             case 'Beacon':
+                console.log('hit Beacon')
                 cells[24][14] = true
                 cells[24][15] = true
                 cells[25][14] = true
                 cells[26][17] = true
                 cells[27][17] = true
                 cells[27][16] = true
+                break;
+            
             default:
+                console.log('hit Default')
                 cells[24][14] = true
                 cells[25][13] = true
                 cells[25][14] = true
                 cells[25][15] = true
                 cells[26][14] = true
         }
-        console.log(cells)
+        setDropDownValue(pattern)
         setGrid(cells)
     }
 
@@ -89,6 +99,7 @@ const useGameLogic = () => {
 
         )
         setRunning(false)
+        setDropDownValue('Default')
         setSteps(0)
         setGrid(newGrid)
     }
@@ -103,6 +114,7 @@ const useGameLogic = () => {
         cells[25][14] = true
         cells[25][15] = true
         cells[26][14] = true
+        setDropDownValue('Default')
         setGrid(cells)
         setRunning(false)
         setSteps(0)
@@ -151,7 +163,7 @@ const useGameLogic = () => {
         newGrid[columnIndex][rowIndex] = !newGrid[columnIndex][rowIndex]
         setGrid(newGrid)
     }
-    return { grid, columns, steps, reset, randomize, start, clickCell,initializePattern}
+    return { grid, columns, steps, reset, randomize, start, clickCell,initializePattern,dropDownValue}
 }
 
 export default useGameLogic

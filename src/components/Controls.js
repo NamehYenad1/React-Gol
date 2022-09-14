@@ -20,7 +20,7 @@ const Controls = (props) => {
             <Stack>
                 <ControlButton onClick={props.start}>Start</ControlButton>
                 <ButtonGroup spacking='3'>
-                    <Select value={value}
+                    <Select value={props.dropDownValue}
                         onChange={handleChange}
                     >
                         <option value='Default'>Default</option>
